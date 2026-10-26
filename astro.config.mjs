@@ -1,5 +1,8 @@
-// @ts-check
 import { defineConfig } from 'astro/config';
 
-// https://astro.build/config
-export default defineConfig({});
+// Static site: `npm run build` writes plain HTML/CSS/images to ./dist,
+// which is exactly what Cloudflare Pages serves.
+export default defineConfig({
+  site: 'https://tonycloses.com',
+  output: 'static',
+});
