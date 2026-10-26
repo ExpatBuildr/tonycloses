@@ -1,0 +1,43 @@
+---
+import { footer, site, socials } from '../data/site';
+---
+
+<footer>
+  {footer.line} &middot; <a href={`mailto:${site.email}`}>{site.email}</a>
+  <div class="social-row">
+    {
+      socials.map((s, i) => (
+        <>
+          {i > 0 && <span class="dot">&middot;</span>}
+          <a href={s.href} target="_blank" rel="noopener">
+            {s.label}
+          </a>
+        </>
+      ))
+    }
+  </div>
+</footer>
+
+<style>
+  footer {
+    padding: 40px 0 60px;
+    color: var(--text-dim);
+    font-size: 14px;
+  }
+  .social-row {
+    margin-top: 12px;
+  }
+  .social-row a {
+    color: var(--text-dim);
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+  }
+  .social-row a:hover {
+    color: var(--text);
+    border-bottom-color: var(--line);
+  }
+  .dot {
+    margin: 0 8px;
+    color: var(--line);
+  }
+</style>

@@ -1,0 +1,60 @@
+---
+import { faqs } from '../data/site';
+---
+
+<section id="faq">
+  <h2>FAQ</h2>
+  <div class="faq-list">
+    {
+      faqs.map((f) => (
+        <details class="faq-item">
+          <summary>{f.q}</summary>
+          <p>{f.a}</p>
+        </details>
+      ))
+    }
+  </div>
+</section>
+
+<style>
+  .faq-list {
+    display: flex;
+    flex-direction: column;
+  }
+  .faq-item {
+    border-top: 1px solid var(--line);
+    padding: 18px 0;
+  }
+  .faq-item:first-child {
+    border-top: none;
+  }
+  .faq-item summary {
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 16px;
+    list-style: none;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .faq-item summary::-webkit-details-marker {
+    display: none;
+  }
+  .faq-item summary::after {
+    content: '+';
+    color: var(--accent);
+    font-size: 20px;
+    font-weight: 400;
+    margin-left: 16px;
+    flex-shrink: 0;
+  }
+  .faq-item[open] summary::after {
+    content: '\2212';
+  }
+  .faq-item p {
+    color: var(--text-dim);
+    font-size: 15px;
+    margin: 12px 0 0;
+    max-width: 56ch;
+  }
+</style>

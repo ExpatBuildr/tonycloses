@@ -1,0 +1,39 @@
+---
+import { background } from '../data/site';
+---
+
+<section>
+  <h2>Background</h2>
+  {
+    background.map((c) => (
+      <div class="case">
+        <p class="title">{c.title}</p>
+        <p>{c.body}</p>
+      </div>
+    ))
+  }
+</section>
+
+<style>
+  .case {
+    background: var(--bg-raised);
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    padding: 28px 28px;
+    margin-bottom: 16px;
+  }
+  .case:last-child {
+    margin-bottom: 0;
+  }
+  .case p {
+    color: var(--text-dim);
+    font-size: 15px;
+    margin: 0;
+    max-width: 56ch;
+  }
+  .case .title {
+    font-weight: 600;
+    font-size: 16px;
+    margin: 0 0 8px;
+  }
+</style>

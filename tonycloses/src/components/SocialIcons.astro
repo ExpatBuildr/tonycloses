@@ -1,0 +1,30 @@
+---
+import { socials } from '../data/site';
+---
+
+<div class="social-icons-top">
+  {
+    socials.map((s) => (
+      <a href={s.href} target="_blank" rel="noopener" aria-label={s.label}>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+          <path d={s.path} />
+        </svg>
+      </a>
+    ))
+  }
+</div>
+
+<style>
+  .social-icons-top {
+    display: flex;
+    gap: 14px;
+  }
+  .social-icons-top a {
+    color: var(--text-dim);
+    display: inline-flex;
+    transition: color 0.15s ease;
+  }
+  .social-icons-top a:hover {
+    color: var(--accent);
+  }
+</style>

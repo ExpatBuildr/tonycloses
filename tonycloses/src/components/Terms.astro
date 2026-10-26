@@ -1,0 +1,46 @@
+---
+import { terms } from '../data/site';
+---
+
+<section id="terms">
+  <h2>How I work with founders</h2>
+  <div class="terms-box">
+    <ul>
+      {
+        terms.map((t) => (
+          <li>
+            <strong>{t.lead}</strong> {t.rest}
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</section>
+
+<style>
+  .terms-box {
+    background: var(--bg-raised);
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    padding: 8px 28px;
+  }
+  ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  li {
+    color: var(--text-dim);
+    font-size: 15px;
+    padding: 16px 0;
+    border-top: 1px solid var(--line);
+    max-width: 60ch;
+  }
+  li:first-child {
+    border-top: none;
+  }
+  strong {
+    color: var(--text);
+    font-weight: 600;
+  }
+</style>
