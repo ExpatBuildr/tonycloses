@@ -1,5 +1,7 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import Nav from '../components/Nav.astro';
+import StickyCta from '../components/StickyCta.astro';
 import HeroBanner from '../components/HeroBanner.astro';
 import Hero from '../components/Hero.astro';
 import TrackRecord from '../components/TrackRecord.astro';
@@ -20,6 +22,7 @@ import { site } from '../data/site';
   shareDescription={site.shareDescription}
   shareImageAlt={site.shareImageAlt}
 >
+  <Nav />
   <HeroBanner />
   <div class="wrap">
     <Hero />
@@ -32,4 +35,5 @@ import { site } from '../data/site';
     <Faq />
     <Footer />
   </div>
+  <StickyCta />
 </Layout>

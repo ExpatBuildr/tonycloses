@@ -1,0 +1,67 @@
+---
+import { site } from '../data/site';
+---
+
+<nav class="topnav" aria-label="Main">
+  <div class="inner">
+    <a class="brand" href="#">Tony Long II</a>
+    <div class="links">
+      <a href="#track-record">Track record</a>
+      <a href="#why-me">Why me</a>
+      <a href="#terms">Terms</a>
+      <a href="#faq">FAQ</a>
+    </div>
+    <a class="btn nav-btn" href={site.bookingUrl}>Book 15 min</a>
+  </div>
+</nav>
+
+<style>
+  .topnav {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: rgba(26, 29, 31, 0.88);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--line);
+  }
+  .inner {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 10px 24px;
+    display: flex;
+    align-items: center;
+    gap: 24px;
+  }
+  .brand {
+    font-weight: 600;
+    font-size: 15px;
+    text-decoration: none;
+    margin-right: auto;
+  }
+  .links {
+    display: flex;
+    gap: 20px;
+  }
+  .links a {
+    color: var(--text-dim);
+    text-decoration: none;
+    font-size: 14px;
+    transition: color 0.15s ease;
+  }
+  .links a:hover {
+    color: var(--text);
+  }
+  .nav-btn {
+    padding: 8px 16px;
+    font-size: 14px;
+  }
+
+  /* On phones the links are hidden and the floating Book button takes over. */
+  @media (max-width: 700px) {
+    .links,
+    .nav-btn {
+      display: none;
+    }
+  }
+</style>

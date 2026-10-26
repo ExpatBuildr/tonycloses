@@ -1,0 +1,61 @@
+---
+import { site } from '../data/site';
+---
+
+<a class="btn sticky-cta" id="sticky-cta" href={site.bookingUrl} aria-hidden="true" tabindex="-1">
+  Book 15 min
+</a>
+
+<style>
+  /* Phones only: the top nav already carries the Book button on larger screens. */
+  .sticky-cta {
+    display: none;
+  }
+  @media (max-width: 700px) {
+    .sticky-cta {
+      display: inline-block;
+      position: fixed;
+      left: 16px;
+      right: 16px;
+      bottom: 16px;
+      z-index: 60;
+      text-align: center;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+      opacity: 0;
+      transform: translateY(20px);
+      pointer-events: none;
+      transition: opacity 0.25s ease, transform 0.25s ease;
+    }
+    .sticky-cta.show {
+      opacity: 1;
+      transform: none;
+      pointer-events: auto;
+    }
+  }
+</style>
+
+<script>
+  // Show after the hero scrolls away; hide again while the main booking section is on screen.
+  const cta = document.getElementById('sticky-cta');
+  const hero = document.querySelector('header.hero');
+  const book = document.getElementById('book');
+
+  if (cta && hero && book && 'IntersectionObserver' in window) {
+    let heroVisible = true;
+    let bookVisible = false;
+    const update = () => {
+      const show = !heroVisible && !bookVisible;
+      cta.classList.toggle('show', show);
+      cta.setAttribute('aria-hidden', String(!show));
+      cta.tabIndex = show ? 0 : -1;
+    };
+    new IntersectionObserver((e) => {
+      heroVisible = e[0].isIntersecting;
+      update();
+    }).observe(hero);
+    new IntersectionObserver((e) => {
+      bookVisible = e[0].isIntersecting;
+      update();
+    }).observe(book);
+  }
+</script>

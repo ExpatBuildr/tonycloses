@@ -53,7 +53,6 @@ export const socials = [
 
 export const stats = [
   { num: '$300K+', label: 'Personally closed over 4-5 years, every client closed by me' },
-  { num: 'Est. $1M+', label: 'Estimated client ad spend managed across those accounts' },
   { num: '$25K', label: 'Largest single deal closed' },
 ];
 

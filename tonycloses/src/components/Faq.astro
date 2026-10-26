@@ -1,6 +1,18 @@
 ---
 import { faqs } from '../data/site';
+
+const faqJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faqs.map((f) => ({
+    '@type': 'Question',
+    name: f.q,
+    acceptedAnswer: { '@type': 'Answer', text: f.a },
+  })),
+};
 ---
+
+<script type="application/ld+json" set:html={JSON.stringify(faqJsonLd)} />
 
 <section id="faq">
   <h2>FAQ</h2>
