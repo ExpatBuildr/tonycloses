@@ -1,5 +1,6 @@
 ---
 import '../styles/global.css';
+import { site, socials } from '../data/site';
 
 interface Props {
   title: string;
@@ -14,6 +15,24 @@ const { title, description, shareTitle, shareDescription, shareImageAlt } = Astr
 // Absolute URLs are required for link previews on Twitter/LinkedIn.
 const canonical = new URL(Astro.url.pathname, Astro.site).href;
 const shareImage = new URL('/og.jpg', Astro.site).href;
+
+// Structured data so search engines can tie the page to Tony and his profiles.
+const personJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Person',
+  name: site.name,
+  url: site.url,
+  jobTitle: site.jobTitle,
+  email: site.email,
+  description: description,
+  image: shareImage,
+  address: {
+    '@type': 'PostalAddress',
+    addressLocality: site.locality,
+    addressCountry: site.countryCode,
+  },
+  sameAs: socials.map((s) => s.href),
+};
 ---
 
 <!doctype html>
@@ -39,11 +58,16 @@ const shareImage = new URL('/og.jpg', Astro.site).href;
     </script>
     <title>{title}</title>
     <meta name="description" content={description} />
+    <meta name="author" content={site.name} />
+    <meta name="robots" content="index, follow, max-image-preview:large" />
     <link rel="canonical" href={canonical} />
+    <link rel="sitemap" href="/sitemap.xml" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 
     <!-- Open Graph / Facebook / LinkedIn -->
     <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="TonyCloses.com" />
+    <meta property="og:locale" content="en_US" />
     <meta property="og:url" content={canonical} />
     <meta property="og:title" content={shareTitle} />
     <meta property="og:description" content={shareDescription} />
@@ -54,11 +78,15 @@ const shareImage = new URL('/og.jpg', Astro.site).href;
 
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site" content={site.twitterHandle} />
+    <meta name="twitter:creator" content={site.twitterHandle} />
     <meta name="twitter:url" content={canonical} />
     <meta name="twitter:title" content={shareTitle} />
     <meta name="twitter:description" content={shareDescription} />
     <meta name="twitter:image" content={shareImage} />
     <meta name="twitter:image:alt" content={shareImageAlt} />
+
+    <script type="application/ld+json" set:html={JSON.stringify(personJsonLd)} />
   </head>
   <body>
     <slot />
