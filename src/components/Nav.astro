@@ -5,15 +5,49 @@ import { site } from '../data/site';
 <nav class="topnav" aria-label="Main">
   <div class="inner">
     <a class="brand" href="#">Tony Long II</a>
-    <div class="links">
+    <div class="links" id="nav-links">
       <a href="#track-record">Track record</a>
       <a href="#why-me">Why me</a>
       <a href="#terms">Terms</a>
       <a href="#faq">FAQ</a>
+      <a class="btn menu-book" href={site.bookingUrl}>Book 15 min</a>
     </div>
     <a class="btn nav-btn" href={site.bookingUrl}>Book 15 min</a>
+    <button
+      class="menu-toggle"
+      type="button"
+      aria-label="Menu"
+      aria-expanded="false"
+      aria-controls="nav-links"
+    >
+      <span></span><span></span><span></span>
+    </button>
   </div>
 </nav>
+
+<script>
+  const nav = document.querySelector('.topnav');
+  const toggle = nav?.querySelector<HTMLButtonElement>('.menu-toggle');
+  const links = nav?.querySelector<HTMLElement>('.links');
+
+  if (nav && toggle && links) {
+    const setOpen = (open: boolean) => {
+      links.classList.toggle('open', open);
+      toggle.classList.toggle('open', open);
+      toggle.setAttribute('aria-expanded', String(open));
+    };
+    toggle.addEventListener('click', () => setOpen(!links.classList.contains('open')));
+    links.addEventListener('click', (e) => {
+      if ((e.target as HTMLElement).closest('a')) setOpen(false);
+    });
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') setOpen(false);
+    });
+    document.addEventListener('click', (e) => {
+      if (!nav.contains(e.target as Node)) setOpen(false);
+    });
+  }
+</script>
 
 <style>
   .topnav {
@@ -57,11 +91,71 @@ import { site } from '../data/site';
     font-size: 14px;
   }
 
-  /* On phones the links are hidden and the floating Book button takes over. */
+  .menu-toggle,
+  .menu-book {
+    display: none;
+  }
+
+  /* On phones the links collapse into a dropdown opened by the hamburger. */
   @media (max-width: 700px) {
-    .links,
     .nav-btn {
       display: none;
+    }
+    .menu-toggle {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 5px;
+      width: 40px;
+      height: 40px;
+      padding: 0 9px;
+      margin-right: -9px;
+      background: none;
+      border: none;
+      cursor: pointer;
+    }
+    .menu-toggle span {
+      display: block;
+      height: 2px;
+      background: var(--text);
+      border-radius: 1px;
+      transition: transform 0.2s ease, opacity 0.2s ease;
+    }
+    .menu-toggle.open span:nth-child(1) {
+      transform: translateY(7px) rotate(45deg);
+    }
+    .menu-toggle.open span:nth-child(2) {
+      opacity: 0;
+    }
+    .menu-toggle.open span:nth-child(3) {
+      transform: translateY(-7px) rotate(-45deg);
+    }
+    .links {
+      display: none;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      right: 0;
+      flex-direction: column;
+      gap: 0;
+      padding: 8px 24px 20px;
+      background: var(--bg);
+      border-bottom: 1px solid var(--line);
+    }
+    .links.open {
+      display: flex;
+    }
+    .links a:not(.menu-book) {
+      font-size: 17px;
+      color: var(--text);
+      padding: 14px 0;
+      border-bottom: 1px solid var(--line);
+    }
+    .links a.menu-book {
+      display: block;
+      color: #0d1f14;
+      margin-top: 16px;
+      text-align: center;
     }
   }
 </style>
