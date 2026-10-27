@@ -1,0 +1,60 @@
+---
+import { loom } from '../data/site';
+
+// Accepts a Loom share or embed link and pulls out the video id.
+const id = loom.url.match(/loom\.com\/(?:share|embed)\/([a-zA-Z0-9]+)/)?.[1];
+const src = id ? `https://www.loom.com/embed/${id}?hide_owner=true&hideEmbedTopBar=true` : '';
+---
+
+{
+  id && (
+    <section id="mock-call">
+      <h2>{loom.heading}</h2>
+      <div class="video-row">
+        <div class="frame">
+          <iframe src={src} title={loom.iframeTitle} loading="lazy" allowfullscreen />
+        </div>
+        <p class="caption">{loom.caption}</p>
+      </div>
+    </section>
+  )
+}
+
+<style>
+  .video-row {
+    display: flex;
+    align-items: center;
+    gap: 32px;
+  }
+  /* Shorts-style vertical video, 9:16. */
+  .frame {
+    width: 100%;
+    max-width: 320px;
+    aspect-ratio: 9 / 16;
+    flex-shrink: 0;
+    background: var(--bg-raised);
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    overflow: hidden;
+  }
+  iframe {
+    width: 100%;
+    height: 100%;
+    border: 0;
+    display: block;
+  }
+  .caption {
+    color: var(--text-dim);
+    font-size: 16px;
+    max-width: 36ch;
+    margin: 0;
+  }
+
+  @media (max-width: 600px) {
+    .video-row {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 20px;
+    }
+  }
+</style>
